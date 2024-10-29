@@ -2,11 +2,11 @@
 
 ###############################################################################################################
 ####
-####                            Third party Ghidra Installer for Linux v1.0.0
+####                            Third party Ghidra Installer for Linux v1.0.1
 ####                                Copyright (c) 2024 Asanka Akash Sovis
 ####
 #### This is a third party installer meant to setup Ghidra on Linux systems easily. It is currently written
-#### to install Ghidra v11.0.3 along with Java Development Kit 22. It will install and setup the dash
+#### to install Ghidra v11.0.3 along with Java Development Kit 23. It will install and setup the dash
 #### launcher. It also supports uninstalling of a Ghidra installation.
 ####
 #### This program is released under the MIT License <https://github.com/asankaSovis/Ghidra_Installer/blob/main/LICENSE>"
@@ -15,14 +15,14 @@
 #### Github Repository and further information <https://github.com/asankaSovis/Ghidra_Installer>
 ####
 #### Created by Asanka Sovis on 14/04/2024
-#### Last Edited by Asanka Sovis on 15/04/2024
-####    - Initial release
+#### Last Edited by Asanka Sovis on 29/10/2024
+####    - Upgrade to JDK 23
 ####
 ###############################################################################################################
 
-installer_version="v1.0.0"
+installer_version="v1.0.1"
 ghidra_version="v11.0.3"
-java_version="22"
+java_version="23"
 
 echo "Ghidra $ghidra_version Installer $installer_version"
 echo "Copyright (c) 2024 Asanka Akash Sovis"
@@ -38,10 +38,11 @@ echo "Initializing..."
 
 install_location="$HOME/Apps"
 
-jdk_22_file=""
-jdk_22_dir="jdk-22"
-jdk_22_link="https://download.oracle.com/java/22/latest/jdk-22_linux-x64_bin.tar.gz"
-jdk_22_file=${jdk_22_link##*/}
+jdk_23_file=""
+jdk_23_dir="jdk-23"
+#jdk_22_link="https://download.oracle.com/java/22/latest/jdk-22_linux-x64_bin.tar.gz"
+jdk_23_link="https://download.oracle.com/java/23/latest/jdk-23_linux-x64_bin.tar.gz"
+jdk_23_file=${jdk_23_link##*/}
 
 ghidra_file=""
 ghidra_dir="ghidra_11.0.3_PUBLIC"
@@ -150,9 +151,9 @@ if [ "$mode" == 0 ]
 then
     # INSTALLATION MODE ------------------------------------------------------------------------
 
-    if [ "$jdk_22_file" == "" ]
+    if [ "$jdk_23_file" == "" ]
     then
-        echo "Critical error! 'jdk_22_file' variable empty. Cannot proceed with the installation."
+        echo "Critical error! 'jdk_23_file' variable empty. Cannot proceed with the installation."
         exit
     fi
 
@@ -177,17 +178,17 @@ then
     # -----------------------------------------------------------------------------------------
     # JDK installing
 
-    if ! test -e "$jdk_22_dir"
+    if ! test -e "$jdk_23_dir"
     then
-        if ! test -e "$jdk_22_file"
+        if ! test -e "$jdk_23_file"
         then
             echo "[2/10] Downloading the Java Runtime Environment..."
-            echo $(wget "$jdk_22_link") > /dev/null
+            echo $(wget "$jdk_23_link") > /dev/null
         else
             echo "[2/10] Java Runtime Environment installation files exist. Will reuse this file..."
         fi
 
-        if ! test -e "$jdk_22_file"
+        if ! test -e "$jdk_23_file"
         then
             echo "Failed to download the Java Runtime Environment! Please check your internet connection."
             exit
@@ -223,12 +224,12 @@ then
     # -----------------------------------------------------------------------------------------
     # JDK Extracting
 
-    rm -rf "$jdk_22_dir"
+    rm -rf "$jdk_23_dir"
 
-    if ! test -e "$jdk_22_dir"
+    if ! test -e "$jdk_23_dir"
     then
         echo "[4/10] Extracting the Java Runtime Environment..."
-        echo $(tar xvzf $jdk_22_file --overwrite) > /dev/null
+        echo $(tar xvzf $jdk_23_file --overwrite) > /dev/null
     fi
 
     # -----------------------------------------------------------------------------------------
@@ -254,7 +255,7 @@ then
     do
         if [[ "$entry" == *"jdk"* ]] && [[ "$entry" != *".tar.gz" ]]
         then
-            jdk_22_dir="$entry"
+            jdk_23_dir="$entry"
             jdk_done=1
         fi
         
@@ -283,7 +284,7 @@ then
     touch $ghidra_dir/appRun
     echo "#!/bin/bash
 
-    export PATH=$jdk_22_dir/bin:\$PATH
+    export PATH=$jdk_23_dir/bin:\$PATH
     setsid ./ghidraRun &
     sleep 5" > $ghidra_dir/appRun
     chmod +x $ghidra_dir/appRun
@@ -336,7 +337,7 @@ then
 
     echo "[10/10] Cleaning up..."
 
-    $(rm -f $jdk_22_file $ghidra_file wget-log) > /dev/null
+    $(rm -f $jdk_23_file $ghidra_file wget-log) > /dev/null
 
     # -----------------------------------------------------------------------------------------
     # Completion
@@ -377,10 +378,10 @@ then
             then
                 if [[ "$entry" == *".tar.gz" ]]
                 then
-                    jdk_22_file="$entry"
+                    jdk_23_file="$entry"
                     jdk_zip_available=1
                 else
-                    jdk_22_dir="$entry"
+                    jdk_23_dir="$entry"
                     jdk_install_available=1
                 fi
             fi
@@ -430,14 +431,14 @@ then
     if [ "$jdk_install_available" == 1 ]
     then
         uninstall_string="$uninstall_string
-    [$counter] $jdk_22_dir"
+    [$counter] $jdk_23_dir"
         counter=$((counter + 1))
     fi
 
     if [ "$jdk_zip_available" == 1 ]
     then
         uninstall_string="$uninstall_string
-    [$counter] $jdk_22_file"
+    [$counter] $jdk_23_file"
         counter=$((counter + 1))
     fi
 
@@ -480,12 +481,12 @@ then
 
         if [ "$jdk_install_available" == 1 ]
         then
-            rm -rf $jdk_22_dir
+            rm -rf $jdk_23_dir
         fi
 
         if [ "$jdk_zip_available" == 1 ]
         then
-            rm -rf $jdk_22_file
+            rm -rf $jdk_23_file
         fi
 
         if [ "$Desktop_available" == 1 ]
@@ -572,13 +573,13 @@ then
 
             if [ "$jdk_install_available" == 1 ]
             then
-                echo "  [$counter] $jdk_22_dir"
+                echo "  [$counter] $jdk_23_dir"
                 counter=$((counter + 1))
             fi
 
             if [ "$jdk_zip_available" == 1 ]
             then
-                echo "  [$counter] $jdk_22_file"
+                echo "  [$counter] $jdk_23_file"
                 counter=$((counter + 1))
             fi
 

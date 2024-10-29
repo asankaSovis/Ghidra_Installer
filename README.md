@@ -4,7 +4,7 @@
 
 ---
 
-**Ghidra Installer** is a third-party installer meant to easily set up Ghidra on Linux systems. It is currently written to install Ghidra v11.0.3 and Java Development Kit 22. It will install and set up the dash launcher for easy launching of the program. On top of this, it also supports the uninstalling of an existing Ghidra installation. Written in Bash, this is intended to be used in Linux environments that support Bash scripts.
+**Ghidra Installer** is a third-party installer meant to easily set up Ghidra on Linux systems. It is currently written to install Ghidra v11.0.3 and Java Development Kit 23. It will install and set up the dash launcher for easy launching of the program. On top of this, it also supports the uninstalling of an existing Ghidra installation. Written in Bash, this is intended to be used in Linux environments that support Bash scripts.
 
 This program is licensed under the **[MIT License](https://github.com/asankaSovis/Ghidra_Installer/blob/main/LICENSE)**.
 Other components might be licensed under other licenses.
@@ -105,6 +105,16 @@ The `-h` or `--help` will output help information for the program.
 - Command Structure: `./ghidra_install.sh -h` `./ghidra_install.sh --help`
 - Example `./ghidra_install.sh -h` `./ghidra_install.sh --help`
 
+## 🐲 Changelog
+
+### 1. [Ghidra Installer v1.0.0](https://github.com/asankaSovis/Ghidra_Installer/releases/tag/v1.0.0)
+
+- Initial release
+
+### 2. [Ghidra Installer v1.0.1](https://github.com/asankaSovis/Ghidra_Installer/releases/tag/v1.0.1) (Latest)
+
+- Upgraded download link of JDK to JDK 23
+
 ## 🐲 Reporting Bugs and Requesting Features
 
 To report bugs and request features, go to [issues](https://github.com/asankaSovis/Ghidra_Installer/issues) and create a new Issue. Make sure to include the terminal output and a clear explanation of what you were trying to do and what happened. Also, include device information such as the distro and install path. It will take some time to provide support.
@@ -115,7 +125,7 @@ Anyone can contribute to this project. If you're a bash programmer, any new feat
 
 ---
 
-> Tested on Ubuntu 23.10
+> Tested on Ubuntu 23.10 | Ubuntu 24.04 | Ubuntu 24.10
 > 
 > ![Tested list](https://skillicons.dev/icons?i=ubuntu)
 
